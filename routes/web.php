@@ -14,12 +14,16 @@ use App\Http\Controllers\AuthController;
 |
 */
 
+
 Route::get('/register',[AuthController::class, 'registrationForm']);
 Route::post('/register',[AuthController::class, 'register']);
 Route::get('/login',[AuthController::class, 'loginForm'])->name('login');
 Route::post('/login',[AuthController::class, 'login']);
 Route::get('/verification/{user}/{token}',[AuthController::class, 'verification']);
+Route::post('/logout',[AuthController::class, 'logout']);
 
 Route::get('/dashboard', function(){
     return view('dashboard');
 })->middleware('auth');
+
+Route::middleware('auth:session')->post('logout', [AuthController::class,'logout']);
