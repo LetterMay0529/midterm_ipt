@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Nexmo\Laravel\Facade\Nexmo;
+
 
 
 
@@ -26,7 +26,7 @@ class AuthController extends Controller
     public function register (Request $request){
         $request->validate([
             'name'  =>  'required|string',
-            'phone_number'  =>  'required|integer',
+            'gender'      => 'required|string',
             'email' => 'required|email',
             'password' => 'required|string'
         ]);
@@ -35,7 +35,7 @@ class AuthController extends Controller
 
         $user = User::create([
             'name' => $request->name,
-            'phone_number' => $request->phone_number,
+            'gender' => $request->gender,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'remember_token' => $token
@@ -44,16 +44,10 @@ class AuthController extends Controller
         Mail::send('verification', ['user'=>$user], function($mail) use ($user){
             $mail->to($user->email);
             $mail->subject('Account Verification');
-            $mail->from('branbroken123@gmail.com', 'Real Estate Listings');
+            $mail->from('branbroken123@gmail.com', 'CheapTalk');
         });
 
-        Nexmo::message()->send([
-            'to'=>''.$user->phone_number,
-            'from'=>'sender',
-            'text'=>'Please check your email for the verification.'
-        ]);
-
-        return redirect('/login')->with('Message', ' A message has been sent to your number.');
+        return redirect('/login')->with('Message', ' A message has been sent to your email.');
 
     }
 

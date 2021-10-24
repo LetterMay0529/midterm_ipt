@@ -1,14 +1,34 @@
-<!-- Image and text -->
-<nav class="navbar navbar-expand-lg navbar-dark position-sticky" style="position:sticky:position:-webkit-position;top:0;">
-  <a style="margin-left:20px;" class="navbar-brand" href="#">REAL ESTATE</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="#">Home</a>
-      <a class="nav-item nav-link" href="#">Features</a>
-      <a class="nav-item nav-link" href="#">Pricing</a>
-    </div>
-  </div>
-</nav>
+<nav class="navbar navbar-expand-lg bg-gradient text-uppercase fixed-top" id="mainNav">
+        <div class="container">
+            <a class="text-white navbar-brand" href="/"><i class="fas fa-headset"></i> CheapTalk</a>
+            <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto ">                      
+                  <li class="nav-item mx-0 mx-lg-1"><a class="text-white nav-link py-3 px-0 px-lg-3 rounded" href="/">HOME</a></li>
+                    @if (!Auth::check())
+                    <li class="nav-item mx-0 mx-lg-1"><a class="text-white nav-link py-3 px-0 px-lg-3 rounded" href="/login">LOGIN</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="text-white nav-link py-3 px-0 px-lg-3 rounded" href="/register">REGISTER</a></li>
+                   @else
+                   <li class="nav-item mx-0 mx-lg-1"><a class="text-white nav-link py-3 px-0 px-lg-3 rounded" href="/dashboard">DASHBOARD</a></li>
+                   <li class="nav-item mx-0 mx-lg-1 dropdown">
+                        <a class="nav-link dropdown-toggle text-white nav-link py-3 px-0 px-lg-3 rounded" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="far fa-list-alt"></i> Category
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @foreach(App\Models\Category::get() as $category)
+                            <li>
+                                <a class="dropdown-item" href="/categories/{{$category->id}}">{{$category->category}}</a>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="text-white nav-link py-3 px-0 px-lg-3 rounded" href="/authors"><i class="fas fa-users"></i> AUTHORS</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="text-white nav-link py-3 px-0 px-lg-3 rounded" href="/login"><i class="fas fa-sign-out"></i> LOG OUT</a></li>
+                    @endif
+                </ul>
+            </div>
+        </div>
+    </nav>

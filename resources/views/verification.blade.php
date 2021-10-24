@@ -5,7 +5,7 @@
 </p>
 
 <p>
-    Thank's for signing up to Real Estate Listings.
+    Thank's for signing up to CheapTalk.
     To get access to your account please verify your email by clicking the link below
 </p>
 <p>
